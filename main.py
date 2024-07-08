@@ -1,6 +1,10 @@
 from environs import Env
 import requests
 import telegram
+import time
+
+
+RECONNECTION_DELAY = 30
 
 
 def main():
@@ -37,8 +41,8 @@ def main():
                                          chat_id=chat_id)
         except requests.exceptions.ReadTimeout:
             continue
-        except ConnectionError:
-            continue
+        except requests.exceptions.ConnectionError:
+            time.sleep(RECONNECTION_DELAY)
 
 
 if __name__ == '__main__':
