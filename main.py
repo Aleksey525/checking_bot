@@ -20,14 +20,14 @@ def main():
             url_long_polling = 'https://dvmn.org/api/long_polling/'
             params = {'timestamp': timestamp}
             headers = {'Authorization': devman_token}
-            response = requests.get(url_long_polling, headers=headers, proxies=params, timeout=60)
+            response = requests.get(url_long_polling, headers=headers, proxies=params, timeout=120)
             response.raise_for_status()
             request_result = response.json()
-            timestamp = request_result['last_attempt_timestamp']
             verification_status = request_result['status']
             if verification_status == 'found':
                 new_attempts = request_result['new_attempts']
                 for attempt in new_attempts:
+                    timestamp = attempt['timestamp']
                     lesson_title = attempt['lesson_title']
                     lesson_url = attempt['lesson_url']
                     result_checking = attempt['is_negative']
