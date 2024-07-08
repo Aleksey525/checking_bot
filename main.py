@@ -18,10 +18,11 @@ def main():
             headers = {'Authorization': devman_token}
             response = requests.get(url_long_polling, headers=headers, proxies=params, timeout=60)
             response.raise_for_status()
-            timestamp = response.json()['last_attempt_timestamp']
-            verification_status = response.json()['status']
+            request_result = response.json()
+            timestamp = request_result['last_attempt_timestamp']
+            verification_status = request_result['status']
             if verification_status == 'found':
-                new_attempts = response.json()['new_attempts']
+                new_attempts = request_result['new_attempts']
                 for attempt in new_attempts:
                     lesson_title = attempt['lesson_title']
                     lesson_url = attempt['lesson_url']
