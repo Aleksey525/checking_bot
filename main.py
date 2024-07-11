@@ -22,10 +22,10 @@ def main():
             headers = {'Authorization': devman_token}
             response = requests.get(url_long_polling, headers=headers, proxies=params, timeout=120)
             response.raise_for_status()
-            request_result = response.json()
-            verification_status = request_result['status']
+            attempts = response.json()
+            verification_status = attempts['status']
             if verification_status == 'found':
-                new_attempts = request_result['new_attempts']
+                new_attempts = attempts['new_attempts']
                 for attempt in new_attempts:
                     timestamp = attempt['timestamp']
                     lesson_title = attempt['lesson_title']
