@@ -25,14 +25,14 @@ def main():
     env = Env()
     env.read_env()
     bot_token = env.str('TG_BOT_TOKEN')
-    bot_logger_token = env.str('TG_BOT_LOGGER_TOKEN')
+    bot_logger_token = env.str('TG_LOGGER_BOT_TOKEN')
     bot = telegram.Bot(token=bot_token)
-    bot_logger = telegram.Bot(token=bot_logger_token)
+    logger_bot = telegram.Bot(token=bot_logger_token)
     chat_id = env.str('TG_CHAT_ID')
     devman_token = env.str('DEVMAN_TOKEN')
     logger = logging.getLogger('Logger')
     logger.setLevel(logging.DEBUG)
-    telegram_handler = TelegramLogsHandler(bot_logger, chat_id)
+    telegram_handler = TelegramLogsHandler(logger_bot, chat_id)
     telegram_handler.setLevel(logging.DEBUG)
     logger.addHandler(telegram_handler)
     logger.info('Бот запущен')
@@ -66,7 +66,7 @@ def main():
         except requests.exceptions.ConnectionError:
             time.sleep(RECONNECTION_DELAY)
         except Exception as err:
-            bot_logger.send_message(chat_id=chat_id, text='Бот упал с ошибкой:')
+            logger_bot.send_message(chat_id=chat_id, text='Бот упал с ошибкой:')
             logger.error(err, exc_info=True)
             time.sleep(ERROR_CHECKING_DELAY)
 
