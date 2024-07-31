@@ -6,6 +6,7 @@ import time
 
 
 RECONNECTION_DELAY = 30
+ERROR_CHECKING_DELAY = 10
 
 
 class TelegramLogsHandler(logging.Handler):
@@ -64,6 +65,10 @@ def main():
             continue
         except requests.exceptions.ConnectionError:
             time.sleep(RECONNECTION_DELAY)
+        except Exception as err:
+            bot_logger.send_message(chat_id=chat_id, text='Бот упал с ошибкой:')
+            logger.error(err, exc_info=True)
+            time.sleep(ERROR_CHECKING_DELAY)
 
 
 if __name__ == '__main__':
