@@ -23,7 +23,8 @@ python main.py
 запишите туда данные в таком формате: `ПЕРЕМЕННАЯ=значение`.
 
 Доступны 3 переменные:
-- `TG_BOT_TOKEN` — API-токен бота
+- `TG_BOT_TOKEN` — API-токен бота 
+- `TG_LOGGER_BOT_TOKEN` — API-токен бота
 - `DEVMAN_TOKEN` — API-токен [Devman.org](https://dvmn.org)
 - `TG_CHAT_ID` — идентификатор чата
 
