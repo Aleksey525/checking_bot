@@ -1,12 +1,15 @@
-from environs import Env
 import logging
 import requests
-import telegram
 import time
+
+from environs import Env
+import telegram
 
 
 RECONNECTION_DELAY = 30
 ERROR_CHECKING_DELAY = 10
+
+logger = logging.getLogger('Logger')
 
 
 class TelegramLogsHandler(logging.Handler):
@@ -30,7 +33,6 @@ def main():
     logger_bot = telegram.Bot(token=bot_logger_token)
     chat_id = env.str('TG_CHAT_ID')
     devman_token = env.str('DEVMAN_TOKEN')
-    logger = logging.getLogger('Logger')
     logger.setLevel(logging.DEBUG)
     telegram_handler = TelegramLogsHandler(logger_bot, chat_id)
     telegram_handler.setLevel(logging.DEBUG)
