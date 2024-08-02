@@ -67,9 +67,8 @@ def main():
             continue
         except requests.exceptions.ConnectionError:
             time.sleep(RECONNECTION_DELAY)
-        except Exception as err:
-            logger_bot.send_message(chat_id=chat_id, text='Бот упал с ошибкой:')
-            logger.error(err, exc_info=True)
+        except Exception:
+            logger.exception('Бот упал с ошибкой:')
             time.sleep(ERROR_CHECKING_DELAY)
 
 
